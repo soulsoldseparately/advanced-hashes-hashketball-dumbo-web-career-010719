@@ -211,13 +211,12 @@ def player_stats(player_name)
       end
     end
   end
-  player_stat_hash
+  puts player_stat_hash
 end
 
 def big_shoe_rebounds
   max_shoe_size = "xxx"
   rebounds_for_max_shoe = "xxx"
-  
   game_hash.each do |k1, v1|
     v1.each do |k2, v2|
       if k2 === :players
@@ -229,9 +228,6 @@ def big_shoe_rebounds
                 rebounds_for_max_shoe = game_hash[k1][k2][k3][:rebounds]
               elsif v4 > max_shoe_size 
                 max_shoe_size = v4
-               # puts "k1 = #{k1}"
-               # puts "k2 = #{k2}"
-               # puts "k3 = #{k3}"
                 rebounds_for_max_shoe = game_hash[k1][k2][k3][:rebounds]
               end
             end
@@ -243,3 +239,89 @@ def big_shoe_rebounds
   return rebounds_for_max_shoe
 end 
 
+#--------------- BELOW ARE THE REFACTORED FUNCTIONS ---------------!
+
+#GOAL 1:  Refactor methods where possible ->  see if any iterations can be         removed to improve efficiency
+
+#GOAL 2:  Investigate whether methods besides *.each* can be used in the           various functions
+
+#--------------- BELOW ARE THE REFACTORED FUNCTIONS ---------------!
+
+
+
+#-------REFACTORED---------#
+def num_points_scored(player_name)
+  game_hash.each do |key, team_data|
+    team_data[:players].each do |name, player_data|
+      if name === player_name
+        return player_data[:points]
+      end
+    end
+  end
+end
+
+#-------REFACTORED---------#
+def shoe_size(player_name)
+  game_hash.each do |key, team_data|
+    team_data[:players].each do |name, player_data|
+      if name === player_name
+        return player_data[:shoe]
+      end
+    end
+  end
+end
+
+#-------REFACTORED---------#
+def team_colors(team_name)
+  game_hash.each do |key, team_data|
+    if team_data[:team_name] === team_name
+      return team_data[:colors]
+    end
+  end
+end
+
+#-------REFACTORED---------#
+def team_names
+  team_name_array = []
+  game_hash.each do |key, team_data|
+    team_name_array << team_data[:team_name]
+  end
+  team_name_array
+end
+
+#-------REFACTORED---------#
+def player_numbers(team_name)
+  player_numbers_array = []
+  game_hash.each do |key, team_data|
+    if team_data[:team_name] === team_name
+      team_data[:players].each do |name, player_data|
+        player_numbers_array << player_data[:number]
+      end
+    end
+  end
+  player_numbers_array
+end
+
+#-------REFACTORED---------#
+def player_stats(player_name)
+  game_hash.each do |key, team_data|
+    team_data[:players].each do |name, player_data|
+      if name === player_name
+        return player_data
+      end
+    end
+  end
+end
+
+def big_shoe_rebounds
+  arr = []
+  game_hash.each do |key, team_data|
+    team_data[:players].each do |name, player_data|
+      arr << {:name => name, :shoe => player_data[:shoe], :rebounds => player_data[:rebounds]}
+    end
+  end
+  return arr.max_by{|x| x[:shoe]}[:rebounds]
+end 
+
+
+#************************  NOTES **********************************
