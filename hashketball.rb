@@ -311,6 +311,22 @@ def player_numbers(team_name)
   player_numbers_array
 end
 
+#-------REFACTORED---------#
+def player_numbers(team_name)
+  
+  puts team_names.select {|team| team == team_name}
+  
+  #player_numbers_array = []
+  # game_hash.each do |key, team_data|
+  #   if team_data[:team_name] === team_name
+  #     team_data[:players].each do |name, player_data|
+  #       player_numbers_array << player_data[:number]
+  #     end
+  #   end
+  # end
+  # player_numbers_array
+end
+
 
 #-------REFACTORED---------#
 def player_stats(player_name)
