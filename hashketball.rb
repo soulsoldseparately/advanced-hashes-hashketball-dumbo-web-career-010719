@@ -241,9 +241,9 @@ end
 
 #--------------- BELOW ARE THE REFACTORED FUNCTIONS ---------------!
 
-#GOAL 1:  Refactor methods where possible ->  see if any iterations can be         removed to improve efficiency
+#GOAL 1:  Refactor methods where possible ->  see if any iterations can be removed to improve efficiency
 
-#GOAL 2:  Investigate whether methods besides *.each* can be used in the           various functions
+#GOAL 2:  Investigate whether methods besides *.each* can be used in the various functions
 
 #--------------- BELOW ARE THE REFACTORED FUNCTIONS ---------------!
 
@@ -281,12 +281,21 @@ def team_colors(team_name)
 end
 
 #-------REFACTORED---------#
+#----uses .each for interation----#
+
 def team_names
-  team_name_array = []
-  game_hash.each do |key, team_data|
-    team_name_array << team_data[:team_name]
-  end
-  team_name_array
+   team_name_array = []
+   game_hash.each do |key, team_data|
+     team_name_array << team_data[:team_name]
+   end
+   team_name_array
+end
+
+#-------REFACTORED---------#
+#----uses .map for interation----#
+
+def team_names
+  game_hash.values.map {|team_data| team_data[:team_name] }
 end
 
 #-------REFACTORED---------#
@@ -302,6 +311,7 @@ def player_numbers(team_name)
   player_numbers_array
 end
 
+
 #-------REFACTORED---------#
 def player_stats(player_name)
   game_hash.each do |key, team_data|
@@ -313,15 +323,15 @@ def player_stats(player_name)
   end
 end
 
+#-------REFACTORED---------#
 def big_shoe_rebounds
   arr = []
   game_hash.each do |key, team_data|
-    team_data[:players].each do |name, player_data|
-      arr << {:name => name, :shoe => player_data[:shoe], :rebounds => player_data[:rebounds]}
-    end
+     team_data[:players].each do |name, player_data|
+        arr << {:name => name, :shoe => player_data[:shoe], :rebounds => player_data[:rebounds]}
+     end
   end
   return arr.max_by{|x| x[:shoe]}[:rebounds]
 end 
 
-
-#************************  NOTES **********************************
+#************************ END **********************************
