@@ -299,6 +299,7 @@ def team_names
 end
 
 #-------REFACTORED---------#
+#----uses only .each for interation----#
 def player_numbers(team_name)
   player_numbers_array = []
   game_hash.each do |key, team_data|
@@ -312,19 +313,13 @@ def player_numbers(team_name)
 end
 
 #-------REFACTORED---------#
+#----uses .each and .map for interation----#
 def player_numbers(team_name)
-  
-  puts team_names.select {|team| team == team_name}
-  
-  #player_numbers_array = []
-  # game_hash.each do |key, team_data|
-  #   if team_data[:team_name] === team_name
-  #     team_data[:players].each do |name, player_data|
-  #       player_numbers_array << player_data[:number]
-  #     end
-  #   end
-  # end
-  # player_numbers_array
+  game_hash.each do |key, team_data|
+    if team_data[:team_name] === team_name
+      return team_data[:players].values.map {|player_data| player_data[:number]}
+    end
+  end
 end
 
 
