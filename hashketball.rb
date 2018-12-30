@@ -291,12 +291,14 @@ def team_names
    team_name_array
 end
 
+
 #-------REFACTORED---------#
 #----uses .map for interation----#
 
 def team_names
   game_hash.values.map {|team_data| team_data[:team_name] }
 end
+
 
 #-------REFACTORED---------#
 #----uses only .each for interation----#
